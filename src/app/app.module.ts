@@ -26,6 +26,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatSortModule } from '@angular/material/sort';
+import { DataService } from './services/data.service';
+import { AuthService } from './services/auth.service';
+import { FilesComponent } from './components/files/files.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,9 @@ import { MatSortModule } from '@angular/material/sort';
     FooterComponent,
     HeaderComponent,
     MenuComponent,
-    DashboardComponent
+    DashboardComponent,
+    FilesComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,10 @@ import { MatSortModule } from '@angular/material/sort';
     HttpClientModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [
+    DataService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

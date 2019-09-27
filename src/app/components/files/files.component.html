@@ -1,0 +1,18 @@
+<div class="container" fxLayout="column" fxLayoutWrap>
+    <mat-card class="page-title">
+        <mat-card-title>Subida de archivos</mat-card-title>
+    </mat-card>
+
+    <div class="container" fxLayout="row" fxLayoutWrap fxLayoutAlign="center">
+        <form (ngSubmit)="onSubmitFile()">
+            <div class="form-group">
+                <input type="file" name="image" (change)="onFileChange($event)" 
+                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</div>
