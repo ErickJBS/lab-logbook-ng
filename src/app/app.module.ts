@@ -31,6 +31,7 @@ import { AuthService } from './services/auth.service';
 import { FilesComponent } from './components/files/files.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HttpClientModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
   ],
   providers: [
     DataService,
