@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -9,7 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class FilesComponent implements OnInit {
 
+  @ViewChild('input', { static: true }) inputFile;
   fileData: File = null;
+  loading: boolean;
 
   constructor(
     private data: DataService,
@@ -30,8 +32,13 @@ export class FilesComponent implements OnInit {
       this.openSnackBar('No se seleccionó un archivo', null);
       return;
     }
-    this.data.uploadDatabaseFile(this.fileData).subscribe((res) => {
+    this.loading = true;
+    this.data.uploadDatabaseFile(this.fileData).subscribe((res: any) => {
+      this.openSnackBar(res.message, null);
       console.log(res);
+      this.loading = false;
+      this.inputFile.nativeElement.value = null;
+      this.fileData = null;
     });
   }
 
