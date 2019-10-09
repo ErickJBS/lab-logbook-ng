@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-schedule',

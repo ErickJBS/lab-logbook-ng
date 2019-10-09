@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-files',
@@ -14,8 +13,7 @@ export class FilesComponent implements OnInit {
   loading: boolean;
 
   constructor(
-    private data: DataService,
-    private snackBar: MatSnackBar
+    private data: DataService
   ) { }
 
   ngOnInit() {
@@ -43,9 +41,6 @@ export class FilesComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
   }
 
 

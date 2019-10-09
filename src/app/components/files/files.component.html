@@ -1,19 +1,14 @@
-<div class="container" fxLayout="column" fxLayoutWrap>
-    <mat-card class="page-header">
-        <mat-card-title>Subida de archivos</mat-card-title>
-    </mat-card>
+<div class="container">
 
-    <div fxLayout="column" fxLayoutAlign="center center">
-        <div fxLayout="row" fxLayoutWrap fxLayoutAlign="center center">
+    <div>
+        <div>
             <img class="file-upload-icon" src="assets/img/xls_icon.png" alt="Archivo excel">
             <input #input type="file" name="image" (change)="onFileChange($event)" title="Seleccionar archivo"
                 accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 
         </div>
-        <button mat-raised-button class="upload-btn" color="primary" (click)="onSubmitFile()" *ngIf="!loading">Subir
+        <button class="upload-btn" color="primary" (click)="onSubmitFile()" *ngIf="!loading">Subir
             archivo</button>
-        <mat-progress-spinner class="upload-spinner" *ngIf="loading" mode="'indeterminate'">
-        </mat-progress-spinner>
     </div>
 
 </div>
