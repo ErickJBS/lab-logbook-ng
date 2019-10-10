@@ -31,6 +31,10 @@ export class LoginComponent implements OnInit {
         errorMessage = 'Contraseña incorrecta';
       } else if (error.status === 404) {
         errorMessage = 'El usuario no existe';
+      } else if (error.status === 400) {
+        errorMessage = 'Falta usuario o contraseña';
+      } else if (error.status === 0) {
+        errorMessage = 'Sin conexión';
       }
       this.toast.add({
         severity: 'warn',

@@ -12,14 +12,20 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Gestión de Laboratorios</h1>
                 </div>
-                <form class="user" (ngSubmit)="onLogin()">
+                <form class="user" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onLogin()" novalidate>
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-user" id="email" name="email"
-                      aria-describedby="emailHelp" placeholder="Email" [(ngModel)]="email">
+                    <input type="email" class="form-control form-control-user" #e="ngModel" name="email"
+                      aria-describedby="emailHelp" placeholder="Email" [(ngModel)]="email" required>
+                    <div class="invalid-feedback" *ngIf="f.submitted && e.invalid">
+                      <div *ngIf="e.errors.required">Campo requerido</div>
+                    </div>
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-user" id="password" name="password"
-                      placeholder="Contraseña" [(ngModel)]="password">
+                    <input type="password" class="form-control form-control-user" #p="ngModel" name="password"
+                      placeholder="Contraseña" [(ngModel)]="password" required>
+                    <div class="invalid-feedback" *ngIf="f.submitted && p.invalid">
+                      <div *ngIf="p.errors.required">Campo requerido</div>
+                    </div>
                   </div>
                   <button class="btn btn-primary btn-user btn-block" type="submit">
                     Iniciar sesión
