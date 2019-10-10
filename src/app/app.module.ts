@@ -13,10 +13,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
+import { GuardService } from './services/guard.service';
 import { FilesComponent } from './components/files/files.component';
-import { ScheduleComponent } from './components/schedule/schedule.component';
+import { CleanComponent } from './layout/clean/clean.component';
+import { LoggerComponent } from './components/logger/logger.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,9 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     MenuComponent,
     DashboardComponent,
     FilesComponent,
-    ScheduleComponent
+    CleanComponent,
+    LoggerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,10 +45,13 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     NoopAnimationsModule,
     FormsModule,
     HttpClientModule,
+    ToastModule,
   ],
   providers: [
+    GuardService,
     DataService,
-    AuthService
+    AuthService,
+    MessageService,
   ],
   bootstrap: [AppComponent]
 })

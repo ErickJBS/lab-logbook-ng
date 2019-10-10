@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  awaitingNotifications: any[] = [];
+
+  showNotificacions = false;
+  showUserInfo = false;
+
+  style = 'transform: translate3d(-135px, 32px, 0px)';
+
   constructor() { }
 
   ngOnInit() {

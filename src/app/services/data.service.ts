@@ -60,4 +60,12 @@ export class DataService {
     return this.http.post(postUrl, formData);
   }
 
+  createRecord() {
+
+  }
+
+  getRecords() {
+
+  }
+
 }
