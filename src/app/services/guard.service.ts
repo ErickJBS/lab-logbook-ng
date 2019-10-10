@@ -15,6 +15,7 @@ export class GuardService {
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const user = this.auth.getUser();
     if (!user) {
+      console.log('[GuardService] no user');
       this.router.navigate(['/login']);
       return false;
     }

@@ -23,18 +23,22 @@ export class AuthService {
 
   async signIn(email: string, password: string) {
     const url = `${environment.apiUrl}/login`;
-    return this.http.post<any>(url, { email, password })
-      .pipe(map(data => {
+    const body = new URLSearchParams();
+    return new Promise<void>((resolve, reject) => {
+      this.http.post<any>(url, { email, password }).subscribe((data) => {
         if (data && data.token) {
           this.setToken(data.token);
           this.setUser({
             email: data.email,
             name: data.name,
-            role: data.role,
+            role: data.role
           });
         }
-        return data;
-      }));
+        resolve();
+      }, (error) => {
+        reject(error);
+      });
+    });
   }
 
   async signOut() {

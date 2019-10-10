@@ -1,39 +1,25 @@
 <div class="header py-4">
-    <div class="container">
-      <div class="d-flex">
-        <a class="header-brand" href="" [routerLink]="['/home']">
-          <img src="/assets/img/flat-logo.png" class="header-brand-img" alt="ChambApp">
-        </a>
-        <div class="d-flex order-lg-2 ml-auto">
-          <div class="dropdown d-none d-md-flex">
-            <a href="javascript:void(0)" class="nav-link icon" (blur)="showNotificacions = false" (focus)="showNotificacions = true">
-              <i class="fa fa-bell"></i>
-              <span *ngIf="awaitingNotifications?.length" class="nav-unread"></span>
-            </a>
-            
-          </div>
-          <div class="dropdown mr-2" *ngIf=" authService.user$ | async as user">
-            <a href="javascript:void(0)" class="nav-link pr-0 leading-none" (blur)="showUserInfo = false" (focus)="showUserInfo = true">
-              <img class="avatar" src="{{ user?.photoURL || 'assets/img/avatar.png'}}" alt="">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow hide" [ngClass]="{'show': showUserInfo}" x-placement="bottom-end">
-              <div>
-                <div class="m-4  text-center">
-                  <img class="card-profile-img p-0 m-0" src="{{ user?.photoURL || 'assets/img/avatar.png'}}" alt="">
-                  <div class="text-bold m-4">
-                    {{ user?.firstName }} {{ user?.lastName }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="container">
+    <div class="d-flex">
+      <a class="header-brand" href="" [routerLink]="['/home']">
+        <img src="/assets/img/flat-logo.png" class="header-brand-img" alt="Lab Logbook">
+      </a>
+      <div class="d-flex order-lg-2 ml-auto">
+        <div class="dropdown d-none d-md-flex">
+          <a href="javascript:void(0)" class="nav-link icon" (blur)="showNotificacions = false"
+            (focus)="showNotificacions = true">
+            <i class="fa fa-bell"></i>
+            <span *ngIf="awaitingNotifications?.length" class="nav-unread"></span>
+          </a>
+
         </div>
-        <a href="javascript:void(0)" class="header-toggler d-lg-none ml-3 ml-lg-0" (click)="data.isMenuCollapsed = !data.isMenuCollapsed">
-          <span class="header-toggler-icon"></span>
-        </a>
-  
       </div>
+      <a href="javascript:void(0)" class="header-toggler d-lg-none ml-3 ml-lg-0"
+        (click)="data.isMenuCollapsed = !data.isMenuCollapsed">
+        <span class="header-toggler-icon"></span>
+      </a>
+
     </div>
   </div>
-  <app-menu></app-menu>
-  
+</div>
+<app-menu></app-menu>

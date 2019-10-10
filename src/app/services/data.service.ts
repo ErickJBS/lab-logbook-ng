@@ -6,6 +6,7 @@ import { environment } from 'environments/environment';
   providedIn: 'root'
 })
 export class DataService {
+  public isMenuCollapsed;
 
   private baseUrl: string;
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   style = 'transform: translate3d(-135px, 32px, 0px)';
 
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit() {
   }
