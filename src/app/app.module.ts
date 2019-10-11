@@ -13,6 +13,8 @@ import { TokenInterceptor } from './services/token.interceptor';
 
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
@@ -24,6 +26,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './layout/main/nav/nav.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { HeaderComponent } from './layout/main/header/header.component';
+import { UserComponent } from './components/settings/user/user.component';
+import { UserListComponent } from './components/settings/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,9 @@ import { HeaderComponent } from './layout/main/header/header.component';
     LoginComponent,
     NavComponent,
     SettingsComponent,
-    HeaderComponent
+    HeaderComponent,
+    UserComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +53,8 @@ import { HeaderComponent } from './layout/main/header/header.component';
     FormsModule,
     HttpClientModule,
     ToastModule,
+    DialogModule,
+    DropdownModule,
   ],
   providers: [
     GuardService,

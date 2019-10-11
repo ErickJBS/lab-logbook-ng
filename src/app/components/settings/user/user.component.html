@@ -1,0 +1,58 @@
+<div class="container">
+
+  <h1 class="h3 mb-2 text-gray-800">Nuevo Usuario</h1>
+
+  <div class="mt-5">
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onCreateAccount()" novalidate>
+      <div class="row">
+        <div class="form-group col col-md-6">
+          <input type="email" class="form-control" #e="ngModel" name="email" placeholder="Email"
+            [(ngModel)]="user.email" required>
+          <div class="invalid-feedback" *ngIf="f.submitted && e.invalid">
+            <div *ngIf="e.errors.required">Campo requerido</div>
+          </div>
+        </div>
+        <div class="form-group col col-md-6">
+          <input type="text" class="form-control" #n="ngModel" name="nombre" placeholder="Nombre"
+            [(ngModel)]="user.name" required>
+          <div class="invalid-feedback" *ngIf="f.submitted && n.invalid">
+            <div *ngIf="n.errors.required">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col col-md-6">
+          <p-dropdown [style]="{'width':'100%'}" name="classroom" [options]="classrooms" [(ngModel)]="user.classroom"
+            #cr="ngModel" requeried filter="true">
+          </p-dropdown>
+          <div class="invalid-feedback" *ngIf="f.submitted && cr.invalid">
+            <div *ngIf="cr.errors.required">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col col-md-6">
+          <input type="password" class="form-control" #p="ngModel" name="password" placeholder="Contraseña"
+            [(ngModel)]="user.password" required>
+          <div class="invalid-feedback" *ngIf="f.submitted && p.invalid">
+            <div *ngIf="p.errors.required">Campo requerido</div>
+          </div>
+        </div>
+        <div class="form-group col col-md-6">
+          <input type="password" class="form-control" #pp="ngModel" name="ppassword" placeholder="Confirmar contraseña"
+            [(ngModel)]="user.ppassword" required>
+          <div class="invalid-feedback" *ngIf="f.submitted && pp.invalid">
+            <div *ngIf="pp.errors.required">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-end">
+        <button type="submit" class="btn btn-primary"> Crear usuario </button>
+      </div>
+    </form>
+  </div>
+
+</div>

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
 import { User } from '@models/user';
 
 @Injectable({
@@ -18,12 +17,29 @@ export class AuthService {
   ) { }
 
   signUp(email: string, password: string, name: string, classroom: string) {
-    // TODO create an lab admin account
+    const url = `${environment.apiUrl}/signup`;
+    return new Promise<string>((resolve, reject) => {
+      this.http.post<any>(url, { email, password, name }).subscribe((data) => {
+        resolve(data);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  }
+
+  assignClassroom(id: string, classroom: string) {
+    const url = `${environment.apiUrl}/assign`;
+    return new Promise<void>((resolve, reject) => {
+      this.http.post<any>(url, { id, classroom }).subscribe((data) => {
+        resolve();
+      }, (error) => {
+        reject(error);
+      });
+    });
   }
 
   async signIn(email: string, password: string) {
     const url = `${environment.apiUrl}/login`;
-    const body = new URLSearchParams();
     return new Promise<void>((resolve, reject) => {
       this.http.post<any>(url, { email, password }).subscribe((data) => {
         if (data && data.token) {

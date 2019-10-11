@@ -64,6 +64,11 @@ export class DataService {
     return this.http.get(requestUrl);
   }
 
+  getClassrooms() {
+    const requestUrl = `${this.baseUrl}/classroom/list`;
+    return this.http.get(requestUrl);
+  }
+
   createRecord() {
 
   }
