@@ -1,3 +1,39 @@
 <div class="container">
-    <p>logger works!</p>
+    <h1 class="h3 mb-4 text-gray-800">Registro de usuarios</h1>
+
+    <div class="row">
+        <div class="col card text-center px-0">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Bienvenidos</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+
+                <form class="user" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onStudentLog()" novalidate>
+                    <div class="form-group">
+                        <input type="number" class="form-control form-control-lg" #m="ngModel" name="student" cha
+                            placeholder="Matrícula" [(ngModel)]="studentId" required>
+                        <div class="invalid-feedback" *ngIf="f.submitted && m.invalid">
+                            <div *ngIf="m.errors.required">Campo requerido</div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <button class="btn btn-primary" type="submit">
+                            Registrarse
+                        </button>
+                    </div>
+                </form>
+
+                <div *ngIf="lastStudent">
+                    <hr>
+                    <h4 class="card-title">Bienvenido</h4>
+                    <p class="card-text">{{ lastStudent?.name }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
