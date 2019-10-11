@@ -23,7 +23,7 @@ import { LoggerComponent } from './components/logger/logger.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './layout/main/nav/nav.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { HeaderComponent } from './layout/header/header.component';
+import { HeaderComponent } from './layout/main/header/header.component';
 
 @NgModule({
   declarations: [

@@ -31,7 +31,8 @@ export class AuthService {
           this.setUser({
             email: data.email,
             name: data.name,
-            role: data.role
+            role: data.role,
+            classroom: data.classroom,
           });
         }
         resolve();
