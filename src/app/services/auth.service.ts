@@ -9,8 +9,8 @@ import { User } from '@models/user';
   providedIn: 'root'
 })
 export class AuthService {
-  token: string;
-  currentUser: User;
+  private token: string;
+  private currentUser: User;
 
   constructor(
     private router: Router,

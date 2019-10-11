@@ -4,9 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './layout/main/main.component';
-import { FooterComponent } from './layout/main/footer/footer.component';
-import { HeaderComponent } from './layout/main/header/header.component';
-import { MenuComponent } from './layout/main/menu/menu.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,19 +20,20 @@ import { FilesComponent } from './components/files/files.component';
 import { CleanComponent } from './layout/clean/clean.component';
 import { LoggerComponent } from './components/logger/logger.component';
 import { LoginComponent } from './components/login/login.component';
+import { NavComponent } from './layout/main/nav/nav.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    FooterComponent,
-    HeaderComponent,
-    MenuComponent,
     DashboardComponent,
     FilesComponent,
     CleanComponent,
     LoggerComponent,
-    LoginComponent
+    LoginComponent,
+    NavComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
