@@ -8,7 +8,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './services/token.interceptor';
 
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -22,6 +23,7 @@ import { LoggerComponent } from './components/logger/logger.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './layout/main/nav/nav.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { HeaderComponent } from './layout/header/header.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     LoggerComponent,
     LoginComponent,
     NavComponent,
-    SettingsComponent
+    SettingsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,11 @@ import { SettingsComponent } from './components/settings/settings.component';
     DataService,
     AuthService,
     MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
