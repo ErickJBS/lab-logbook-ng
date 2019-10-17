@@ -14,7 +14,13 @@ export class DataService {
 
   getClassroomSchedule(id: string) {
     const requestUrl = `${this.baseUrl}/classroom?id=${id}`;
-    return this.http.get(requestUrl);
+    return new Promise<any[]>((resolve, reject) => {
+      this.http.get(requestUrl).subscribe((data: any[]) => {
+        resolve(data);
+      }, (error) => {
+        reject(error);
+      });
+    });
   }
 
   getGroupList(groupId: string, subjectId: string) {
@@ -69,8 +75,9 @@ export class DataService {
     return this.http.get(requestUrl);
   }
 
-  createRecord() {
-
+  createRecord(studentId: string, classroom: string, groupId: string, subjectId: string) {
+    const postUrl = `${this.baseUrl}/record/create`;
+    return this.http.post<any>(postUrl, { studentId, classroom, groupId, subjectId }).subscribe();
   }
 
   getRecords() {
