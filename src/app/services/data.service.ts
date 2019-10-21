@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -75,13 +75,26 @@ export class DataService {
     return this.http.get(requestUrl);
   }
 
+  getPrograms() {
+    const requestUrl = `${this.baseUrl}/programs`;
+    return this.http.get(requestUrl).toPromise();
+  }
+
   createRecord(studentId: string, classroom: string, groupId: string, subjectId: string) {
     const postUrl = `${this.baseUrl}/record/create`;
     return this.http.post<any>(postUrl, { studentId, classroom, groupId, subjectId }).subscribe();
   }
 
-  getRecords() {
-
+  getRecords(programId: string, classroom: string, start: string, end: string) {
+    const requestUrl = `${this.baseUrl}/record`;
+    const params = new HttpParams()
+      .set('classroom', classroom)
+      .set('start', start)
+      .set('end', end);
+    if (programId) {
+      params.set('programId', programId);
+    }
+    return this.http.get(requestUrl, { params }).toPromise();
   }
 
 }

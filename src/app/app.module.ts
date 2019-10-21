@@ -15,6 +15,9 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { ChartModule } from 'primeng/chart';
+import { CalendarModule } from 'primeng/calendar';
+import { TableModule, Table } from 'primeng/table';
 
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
@@ -55,6 +58,9 @@ import { UserListComponent } from './components/settings/user-list/user-list.com
     ToastModule,
     DialogModule,
     DropdownModule,
+    ChartModule,
+    CalendarModule,
+    TableModule,
   ],
   providers: [
     GuardService,

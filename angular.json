@@ -35,7 +35,9 @@
               "src/assets/css/sb-admin-2.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/chart.js/dist/Chart.js"
+            ]
           },
           "configurations": {
             "production": {
