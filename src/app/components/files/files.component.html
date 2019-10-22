@@ -1,14 +1,17 @@
 <div class="container">
+  <h1 class="h3 text-gray-800">Subida de Archivos</h1>
 
-    <div>
-        <div>
-            <img class="file-upload-icon" src="assets/img/xls_icon.png" alt="Archivo excel">
-            <input #input type="file" name="image" (change)="onFileChange($event)" title="Seleccionar archivo"
-                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-
-        </div>
-        <button class="upload-btn" color="primary" (click)="onSubmitFile()" *ngIf="!loading">Subir
-            archivo</button>
+  <div class="card text-center">
+    <div class="card-body p-5">
+      <div class="row justify-content-between">
+        <p-progressSpinner class="file-upload-icon" mode="indeterminate" *ngIf="loading"></p-progressSpinner>
+        <img class="file-upload-icon" *ngIf="!loading" src="assets/img/xls_icon.png" alt="Archivo excel">
+        <p-fileUpload #input name="xls" styleClass="btn btn-block btn-primary" mode="basic" customUpload="true"
+          chooseLabel="Seleccionar archivo" (uploadHandler)="onUpload($event)" auto="true"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+        </p-fileUpload>
+      </div>
     </div>
+  </div>
 
 </div>

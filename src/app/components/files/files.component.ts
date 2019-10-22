@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '@services/data.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-files',
@@ -7,41 +8,37 @@ import { DataService } from '@services/data.service';
   styleUrls: ['./files.component.scss']
 })
 export class FilesComponent implements OnInit {
-
-  @ViewChild('input', { static: true }) inputFile;
-  fileData: File = null;
+  @ViewChild('input', { static: true }) inputFile: any;
   loading: boolean;
 
   constructor(
-    private data: DataService
+    private data: DataService,
+    private toast: MessageService,
   ) { }
 
   ngOnInit() {
   }
 
-  onFileChange(fileInput: any) {
-    if (fileInput.target.files.length > 0) {
-      this.fileData = fileInput.target.files[0];
-    }
-  }
-
-  onSubmitFile() {
-    if (this.fileData === null) {
-      this.openSnackBar('No se seleccionó un archivo', null);
-      return;
-    }
-    this.loading = true;
-    this.data.uploadDatabaseFile(this.fileData).subscribe((res: any) => {
-      this.openSnackBar(res.message, null);
-      console.log(res);
-      this.loading = false;
-      this.inputFile.nativeElement.value = null;
-      this.fileData = null;
+  displayMessage(msg: string) {
+    this.toast.add({
+      severity: 'info', summary: msg
     });
   }
 
-  openSnackBar(message: string, action: string) {
-  }
+  onUpload(event: any) {
+    const file = event.files[0];
+    if (file === null) {
+      this.displayMessage('No se seleccionó un archivo');
+      return;
+    }
 
+    this.loading = true;
+    this.data.uploadDatabaseFile(file).subscribe((res: any) => {
+      this.displayMessage(res.message);
+      console.log(res);
+      this.loading = false;
+      this.inputFile.clear();
+    });
+  }
 
 }

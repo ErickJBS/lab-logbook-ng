@@ -18,6 +18,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule, Table } from 'primeng/table';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
@@ -61,6 +63,8 @@ import { UserListComponent } from './components/settings/user-list/user-list.com
     ChartModule,
     CalendarModule,
     TableModule,
+    FileUploadModule,
+    ProgressSpinnerModule,
   ],
   providers: [
     GuardService,

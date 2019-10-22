@@ -24,15 +24,22 @@
         </div>
 
         <li class="nav-item">
-            <a class="nav-link py-1" [routerLink]="['/dashboard']">
+            <a class="nav-link" [routerLink]="['/dashboard']">
                 <i class="fa fa-table px-3"></i>
                 <span>Reportes</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link pt-1" [routerLink]="['/settings']">
-                <i class="fa fa-cogs px-3" aria-hidden="true"></i>
+            <a class="nav-link pt-0" [routerLink]="['/database']">
+                <i class="fa fa-database px-3"></i>
+                <span>Base de Datos</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link pt-0" [routerLink]="['/settings']">
+                <i class="fa fa-cogs px-3"></i>
                 <span>Configuración</span>
             </a>
         </li>
