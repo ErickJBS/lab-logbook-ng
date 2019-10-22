@@ -24,15 +24,29 @@
             <td>{{ user.classroom }}</td>
             <td>{{ user.email }}</td>
             <td>
-              <a class="btn btn-sm btn-danger float-right" href="javascript:void(0)">
+              <a class="btn btn-sm btn-danger float-right" href="javascript:void(0)" (click)="showDeleteDialog(user)">
                 <i class="fa fa-trash"></i>
               </a>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="alert alert-warning mt-2" role="alert" *ngIf="users?.length === 0">
+        No hay usuarios registrados
+      </div>
     </div>
 
   </div>
 
 </div>
+
+<p-dialog header="Eliminar Usuario" [(visible)]="displayDialog" [modal]="true" [responsive]="true"
+  [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" *ngIf="selectedUser">
+  <p>¿Eliminar cuenta del usuario <strong>{{ selectedUser.name }}</strong>?</p>
+  <p>Laboratorio correspondiente: <strong>{{ selectedUser.classroom }}</strong></p>
+  <p>Esta acción <strong>NO</strong> puede ser revertida</p>
+  <p-footer>
+    <button type="button" class="btn btn-secondary mr-2" (click)="displayDialog=false"> Cancelar </button>
+    <button type="button" class="btn btn-danger" (click)="onDelete()"> Eliminar </button>
+  </p-footer>
+</p-dialog>

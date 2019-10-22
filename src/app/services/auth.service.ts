@@ -27,6 +27,11 @@ export class AuthService {
     });
   }
 
+  deleteUser(userId: string) {
+    const url = `${environment.apiUrl}/users/delete`;
+    return this.http.post<any>(url, { userId }).toPromise();
+  }
+
   assignClassroom(id: string, classroom: string) {
     const url = `${environment.apiUrl}/assign`;
     return new Promise<void>((resolve, reject) => {
