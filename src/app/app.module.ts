@@ -28,6 +28,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { HeaderComponent } from './layout/main/header/header.component';
 import { UserComponent } from './components/settings/user/user.component';
 import { UserListComponent } from './components/settings/user-list/user-list.component';
+import { LendingsComponent } from './components/lendings/lendings.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UserListComponent } from './components/settings/user-list/user-list.com
     SettingsComponent,
     HeaderComponent,
     UserComponent,
-    UserListComponent
+    UserListComponent,
+    LendingsComponent
   ],
   imports: [
     BrowserModule,
