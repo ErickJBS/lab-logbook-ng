@@ -1,8 +1,8 @@
 <div class="container">
 
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mt-5">
 
-    <div class="col">
+    <div class="col-xl-10">
       <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
           <div class="row">
@@ -10,19 +10,22 @@
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Gestión de Laboratorios</h1>
+                  <h4 class="text-gray-900 mb-1">Gestión de Laboratorios</h4>
+                  <h5 class="text-gray-700 mb-4">Inicio de sesión</h5>
                 </div>
                 <form class="user" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onLogin()" novalidate>
                   <div class="form-group">
                     <input type="email" class="form-control form-control-user" #e="ngModel" name="email"
-                      aria-describedby="emailHelp" placeholder="Email" [(ngModel)]="email" required>
+                      aria-describedby="emailHelp" placeholder="Email" [(ngModel)]="email" required
+                      [ngClass]="{ 'is-invalid': f.submitted && e.invalid }">
                     <div class="invalid-feedback" *ngIf="f.submitted && e.invalid">
                       <div *ngIf="e.errors.required">Campo requerido</div>
                     </div>
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" #p="ngModel" name="password"
-                      placeholder="Contraseña" [(ngModel)]="password" required>
+                      placeholder="Contraseña" [(ngModel)]="password" required
+                      [ngClass]="{ 'is-invalid': f.submitted && p.invalid }">
                     <div class="invalid-feedback" *ngIf="f.submitted && p.invalid">
                       <div *ngIf="p.errors.required">Campo requerido</div>
                     </div>
