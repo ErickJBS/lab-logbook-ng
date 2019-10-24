@@ -27,10 +27,10 @@ export class UserComponent implements OnInit {
 
   onLoad() {
     this.data.getClassrooms().subscribe((data: any[]) => {
-      // TODO que el dropdown empiece vacío
       this.classrooms = data.map((item) => {
         return { label: item.classroom, value: item.classroom };
       });
+      this.classrooms.unshift({ label: 'Selecciona laboratorio' });
     });
   }
 
