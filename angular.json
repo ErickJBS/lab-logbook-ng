@@ -36,7 +36,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/chart.js/dist/Chart.js"
+              "./node_modules/chart.js/dist/Chart.js",
+              "./node_modules/pdfmake/build/pdfmake.min.js",
+              "./node_modules/pdfmake/build/vfs_fonts.js"
             ]
           },
           "configurations": {

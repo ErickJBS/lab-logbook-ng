@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { MessageService } from 'primeng/api';
 import { ES_LOCALE } from '@services/const.service';
+import { PdfGenerator } from '@app/services/pdf.generator';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private data: DataService,
     private toast: MessageService,
+    private pdf: PdfGenerator,
   ) { }
 
   ngOnInit() {
@@ -87,5 +89,11 @@ export class DashboardComponent implements OnInit {
     this.toast.add({
       severity: 'warn', summary: msg
     });
+  }
+
+  async generatePdfReport() {
+    const admin: any = await this.data.getAdminUser(this.selectedLab);
+    const records = this.records.map((item: any) => [item.student_id, item.name, item.program_id]);
+    this.pdf.generateStudentsReportPdf(admin.name, records);
   }
 }

@@ -1,7 +1,8 @@
 <div class="container">
   <h1 class="h3 text-gray-800">Reportes de laboratorios</h1>
   <div class="row justify-content-end mb-2">
-    <button type="button" name="button" class="btn btn-primary mr-2">Exportar PDF</button>
+    <button type="button" name="button" class="btn btn-primary mr-2" [disabled]="!records"
+      (click)="generatePdfReport()">Exportar PDF</button>
   </div>
 
   <div class="card">

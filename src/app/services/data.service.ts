@@ -97,4 +97,9 @@ export class DataService {
     return this.http.get(requestUrl, { params }).toPromise();
   }
 
+  getAdminUser(classroom: string) {
+    const requestUrl = `${this.baseUrl}/users/admin?classroom=${classroom}`;
+    return this.http.get(requestUrl).toPromise();
+  }
+
 }
