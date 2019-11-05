@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 export class FilesComponent implements OnInit {
   @ViewChild('input', { static: true }) inputFile: any;
   loading: boolean;
+  updateDate: any;
 
   constructor(
     private data: DataService,
@@ -17,6 +18,15 @@ export class FilesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.onLoad();
+  }
+
+  onLoad() {
+    this.data.getConfig('updateDate').then((res) => {
+      this.updateDate = res;
+    }).catch(err => {
+      console.error(err);
+    });
   }
 
   displayMessage(msg: string) {
@@ -35,9 +45,12 @@ export class FilesComponent implements OnInit {
     this.loading = true;
     this.data.uploadDatabaseFile(file).subscribe((res: any) => {
       this.displayMessage(res.message);
-      console.log(res);
-      this.loading = false;
+      if (res.code === 0) {
+        this.updateDate = new Date();
+        this.data.setConfig('updateDate', this.updateDate);
+      }
       this.inputFile.clear();
+      this.loading = false;
     });
   }
 

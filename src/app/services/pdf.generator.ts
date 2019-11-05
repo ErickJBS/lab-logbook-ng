@@ -105,7 +105,7 @@ export class PdfGenerator {
       }
     };
 
-    pdfMake.createPdf(docDefinition).open();
+    pdfMake.createPdf(docDefinition as any).open();
   }
 
 }

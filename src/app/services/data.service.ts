@@ -108,4 +108,16 @@ export class DataService {
     return this.http.get(requestUrl).toPromise();
   }
 
+  setConfig(key: string, value: any) {
+    const postUrl = `${this.baseUrl}/config`;
+    return this.http.post<any>(postUrl, { key, value }).toPromise();
+  }
+
+  getConfig(key: string) {
+    const requestUrl = `${this.baseUrl}/config`;
+    const params = new HttpParams()
+      .set('key', key);
+    return this.http.get<any>(requestUrl, { params }).toPromise();
+  }
+
 }
