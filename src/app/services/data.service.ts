@@ -45,7 +45,7 @@ export class DataService {
 
   getProfessor(id: string) {
     const requestUrl = `${this.baseUrl}/professor?id=${id}`;
-    return this.http.get(requestUrl);
+    return this.http.get(requestUrl).toPromise();
   }
 
   getProfessorSchedule(id: string) {
@@ -83,6 +83,11 @@ export class DataService {
   createRecord(studentId: string, classroom: string, groupId: string, subjectId: string) {
     const postUrl = `${this.baseUrl}/record/create`;
     return this.http.post<any>(postUrl, { studentId, classroom, groupId, subjectId }).subscribe();
+  }
+
+  createEmployeeRecord(employeeId: string, classroom: string, groupId: string, subjectId: string) {
+    const postUrl = `${this.baseUrl}/record/create`;
+    return this.http.post<any>(postUrl, { employeeId, classroom, groupId, subjectId }).subscribe();
   }
 
   getRecords(programId: string, classroom: string, start: string, end: string) {

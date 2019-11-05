@@ -1,12 +1,59 @@
 <div class="container">
-    <h1 class="h3 mb-4 text-gray-800">Registro de usuarios</h1>
 
     <div class="row">
-        <div class="col card text-center px-0">
+        <div class="col-md-6 form-group">
+            <p-dropdown name="class" [options]="labClasses" [(ngModel)]="selectedClass" [style]="{ 'width': '100%' }"
+                filter="true">
+            </p-dropdown>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6 card text-center px-0">
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Bienvenidos</a>
+                        <a class="nav-link disabled" aria-disabled="true">Registro de empleados</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+
+                <form name="empForm" #ef="ngForm" (ngSubmit)="ef.form.valid && onEmployeeLog()" novalidate>
+                    <div class="row">
+                        <div class="col form-group">
+                            <input type="number" class="form-control form-control" #emp="ngModel" name="emp"
+                                placeholder="Clave de empleado" [(ngModel)]="employeeId" required>
+                            <div class="invalid-feedback" *ngIf="ef.submitted && emp.invalid">
+                                <div *ngIf="emp.errors.required">Campo requerido</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <button class="btn btn-primary" type="submit">
+                            Registrarse
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-6 card text-center px-0">
+            <div class="card-body">
+                <div *ngIf="lastEmployee">
+                    <h5 class="card-title">Docente en el aula <small>({{ checkinHour | date:"HH:mm" }} HRS</small>):
+                    </h5>
+                    <p class="card-text">{{ lastEmployee?.name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 col-12 card text-center px-0">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Registro de estudiantes</a>
                     </li>
                 </ul>
             </div>

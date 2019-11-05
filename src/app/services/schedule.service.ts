@@ -39,4 +39,21 @@ export class ScheduleService {
     }
     return null;
   }
+
+  async getClassList() {
+    const classes = new Map();
+    const lab = this.auth.getUser().classroom;
+    if (!this.schedule || (lab !== this.currentLab)) {
+      await this.onLoad();
+    }
+    for (const cls of this.schedule) {
+      const { group_id, subject_id, name } = cls;
+      classes.set(`${group_id}${subject_id}`, { group_id, name, subject_id });
+    }
+    const result = [];
+    for (const value of classes) {
+      result.push(value[1]);
+    }
+    return result;
+  }
 }

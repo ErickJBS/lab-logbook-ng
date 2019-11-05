@@ -14,6 +14,13 @@ export class LoggerComponent implements OnInit {
   studentId: string;
   lastStudent: any;
 
+  employeeId: string;
+  lastEmployee: any;
+
+  labClasses: any[];
+  selectedClass: any;
+  checkinHour: any;
+
   constructor(
     private data: DataService,
     private toast: MessageService,
@@ -22,18 +29,47 @@ export class LoggerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.onLoad();
+  }
+
+  async onLoad() {
+    const data = await this.schedule.getClassList();
+    this.labClasses = data.map((item: any) => {
+      return {
+        label: `${item.name} - ${item.group_id}`,
+        value: item,
+      };
+    });
+    this.labClasses.unshift({ label: 'Seleccione un grupo', value: null });
+  }
+
+  onEmployeeLog() {
+    if (!this.selectedClass) {
+      this.displayMessage('No se seleccionó un grupo');
+      return;
+    }
+    this.data.getProfessor(this.employeeId).then((data: any) => {
+      this.checkinHour = new Date();
+      if (data && data.length > 0) {
+        this.lastEmployee = data[0];
+        this.logEmployee();
+      } else {
+        this.displayMessage('Empleado no encontrado');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   onStudentLog() {
+    if (!this.selectedClass) {
+      this.displayMessage('No se seleccionó un grupo');
+      return;
+    }
     this.data.getStudent(this.studentId).subscribe(async (data: any) => {
       if (data && data.length > 0) {
         this.lastStudent = data[0];
-        const c = await this.schedule.getCurrentClass();
-        if (c) {
-          this.logStudent(c);
-        } else {
-          this.displayMessage('No hay ninguna clase en curso en el laboratorio');
-        }
+        this.logStudent();
       } else {
         this.displayMessage('Estudiante no encontrado');
       }
@@ -42,9 +78,16 @@ export class LoggerComponent implements OnInit {
     });
   }
 
-  logStudent(info: any) {
+  logStudent() {
     const classroom = this.auth.getUser().classroom;
-    this.data.createRecord(this.studentId, classroom, info.group_id, info.subject_id);
+    this.data.createRecord(
+      this.studentId, classroom, this.selectedClass.group_id, this.selectedClass.subject_id);
+  }
+
+  logEmployee() {
+    const classroom = this.auth.getUser().classroom;
+    this.data.createEmployeeRecord(
+      this.employeeId, classroom, this.selectedClass.group_id, this.selectedClass.subject_id);
   }
 
   displayMessage(msg: string) {
