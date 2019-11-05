@@ -20,6 +20,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule, Table } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
@@ -65,6 +66,7 @@ import { UserListComponent } from './components/settings/user-list/user-list.com
     TableModule,
     FileUploadModule,
     ProgressSpinnerModule,
+    InputSwitchModule,
   ],
   providers: [
     GuardService,

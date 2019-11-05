@@ -1,6 +1,11 @@
 <div class="container">
   <h1 class="h3 text-gray-800">Reportes de laboratorios</h1>
-  <div class="row justify-content-end mb-2">
+  <div class="row justify-content-end my-3">
+    <div class="col row">
+      <p-inputSwitch class="mr-3" [(ngModel)]="mode" (onChange)="onChange()"></p-inputSwitch>
+      <p>Modo: {{ mode? 'Estudiantes' : 'Profesores' }}</p>
+    </div>
+
     <button type="button" name="button" class="btn btn-primary mr-2" [disabled]="!records"
       (click)="generatePdfReport()">Exportar PDF</button>
   </div>
@@ -23,7 +28,7 @@
               <div class="form-group">
                 <label class="form-label" for="program">Carrera </label>
                 <p-dropdown name="program" [options]="programs" [(ngModel)]="selectedProgram"
-                  [style]="{ 'width': '100%' }" filter="true">
+                  [style]="{ 'width': '100%' }" filter="true" [disabled]="!mode">
                 </p-dropdown>
               </div>
             </div>
@@ -69,8 +74,9 @@
             <th>Fecha</th>
             <th>Grupo</th>
             <th>Materia</th>
-            <th>Carrera</th>
-            <th>Matricula</th>
+            <th *ngIf="mode">Carrera</th>
+            <th *ngIf="mode">Matricula</th>
+            <th *ngIf="!mode">Clave empleado</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-record>
@@ -78,8 +84,9 @@
             <td>{{ record.date | date }}</td>
             <td>{{ record.group_id }}</td>
             <td>{{ record.subject_id }}</td>
-            <td>{{ record.program_id }}</td>
-            <td>{{ record.student_id }}</td>
+            <td *ngIf="mode">{{ record.program_id }}</td>
+            <td *ngIf="mode">{{ record.student_id }}</td>
+            <td *ngIf="!mode">{{ record.professor_id }}</td>
           </tr>
         </ng-template>
       </p-table>

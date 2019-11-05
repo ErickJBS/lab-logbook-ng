@@ -12,6 +12,7 @@ import { PdfGenerator } from '@app/services/pdf.generator';
 export class DashboardComponent implements OnInit {
 
   ES_LOCALE = ES_LOCALE;
+  mode = true;
   classrooms: any[];
   programs: any[];
 
@@ -60,9 +61,17 @@ export class DashboardComponent implements OnInit {
     }
     const startDate = this.startDate.getTime().toString();
     const endDate = this.endDate.getTime().toString();
-    this.data.getRecords(this.selectedProgram, this.selectedLab, startDate, endDate).then((data: any[]) => {
-      this.records = data.sort((a, b) => a.date - b.date);
-    });
+    if (this.mode) {
+      // Students
+      this.data.getRecords('students', this.selectedProgram, this.selectedLab, startDate, endDate).then((data: any[]) => {
+        this.records = data.sort((a, b) => a.date - b.date);
+      });
+    } else {
+      // Professores
+      this.data.getRecords('professors', null, this.selectedLab, startDate, endDate).then((data: any[]) => {
+        this.records = data.sort((a, b) => a.date - b.date);
+      });
+    }
   }
 
   checkFilters() {
@@ -95,5 +104,9 @@ export class DashboardComponent implements OnInit {
     const admin: any = await this.data.getAdminUser(this.selectedLab);
     const records = this.records.map((item: any) => [item.student_id, item.name, item.program_id]);
     this.pdf.generateStudentsReportPdf(admin.name, records);
+  }
+
+  onChange() {
+    this.records = null;
   }
 }

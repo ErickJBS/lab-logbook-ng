@@ -90,12 +90,13 @@ export class DataService {
     return this.http.post<any>(postUrl, { employeeId, classroom, groupId, subjectId }).subscribe();
   }
 
-  getRecords(programId: string, classroom: string, start: string, end: string) {
+  getRecords(type: string, programId: string, classroom: string, start: string, end: string) {
     const requestUrl = `${this.baseUrl}/record`;
     const params = new HttpParams()
       .set('classroom', classroom)
       .set('start', start)
-      .set('end', end);
+      .set('end', end)
+      .set('type', type);
     if (programId) {
       params.set('programId', programId);
     }
