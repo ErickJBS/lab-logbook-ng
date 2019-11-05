@@ -102,11 +102,44 @@ export class DashboardComponent implements OnInit {
 
   async generatePdfReport() {
     const admin: any = await this.data.getAdminUser(this.selectedLab);
-    const records = this.records.map((item: any) => [item.student_id, item.name, item.program_id]);
-    this.pdf.generateStudentsReportPdf(admin.name, records);
+    if (this.mode) {
+      const records = this.records.map((item: any) => [item.student_id, item.name, item.program_id]);
+      this.pdf.generateStudentsReportPdf(admin.name, records);
+    } else {
+      const records = this.records.map((item: any) => {
+        const date = new Date(item.date);
+        return [
+          item.name, item.subject_id,
+          this.formatDate(date), this.formatHour(date)
+        ];
+      });
+      this.pdf.generateProfessorsReportPdf(admin.name, records);
+    }
   }
 
   onChange() {
     this.records = null;
+  }
+
+  formatDate(date: Date) {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    const year = '' + date.getFullYear();
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [day, month, year].join('/');
+  }
+
+  formatHour(date: Date) {
+    let hour = '' + date.getHours();
+    hour = hour.length < 2 ? `0${hour}` : hour;
+    let minute = '' + date.getMinutes();
+    minute = minute.length < 2 ? `0${minute}` : minute;
+    return [hour, minute].join(':');
   }
 }
