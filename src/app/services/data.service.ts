@@ -90,16 +90,22 @@ export class DataService {
     return this.http.post<any>(postUrl, { employeeId, classroom, groupId, subjectId }).subscribe();
   }
 
-  getRecords(type: string, programId: string, classroom: string, start: string, end: string) {
+  getRecords(type: string, programId: string, classroom: string, start: string,
+             end: string, subjectId: string, groupId: string) {
     const requestUrl = `${this.baseUrl}/record`;
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('classroom', classroom)
       .set('start', start)
       .set('end', end)
       .set('type', type);
     if (programId) {
-      params.set('programId', programId);
+      params = params.set('programId', programId);
     }
+    if (subjectId && groupId) {
+      params = params.set('groupId', groupId)
+        .set('subjectId', subjectId);
+    }
+
     return this.http.get(requestUrl, { params }).toPromise();
   }
 

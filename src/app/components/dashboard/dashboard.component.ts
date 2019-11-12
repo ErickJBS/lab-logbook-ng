@@ -3,6 +3,7 @@ import { DataService } from '@services/data.service';
 import { MessageService } from 'primeng/api';
 import { ES_LOCALE } from '@services/const.service';
 import { PdfGenerator } from '@app/services/pdf.generator';
+import { ScheduleService } from '@app/services/schedule.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,12 @@ export class DashboardComponent implements OnInit {
   mode = true;
   classrooms: any[];
   programs: any[];
+  groups: any[];
 
   // Filter variables
   selectedLab: string;
   selectedProgram: string;
+  selectedGroup: any;
   startDate: Date;
   endDate: Date;
 
@@ -29,6 +32,7 @@ export class DashboardComponent implements OnInit {
     private data: DataService,
     private toast: MessageService,
     private pdf: PdfGenerator,
+    private schedule: ScheduleService
   ) { }
 
   ngOnInit() {
@@ -50,6 +54,19 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  onClassroomChanged() {
+    this.selectedGroup = null;
+    this.schedule.getGroups(this.selectedLab).then(data => {
+      this.groups = data.map((item: any) => {
+        return {
+          label: `${item.name} - ${item.group_id}`,
+          value: item,
+        };
+      });
+      this.groups.unshift({ label: 'Todos los grupos' });
+    });
+  }
+
   dynamicDateRange(): string {
     const currentYear = new Date().getFullYear();
     return `${currentYear - 5}:${currentYear}`;
@@ -63,12 +80,21 @@ export class DashboardComponent implements OnInit {
     const endDate = this.endDate.getTime().toString();
     if (this.mode) {
       // Students
-      this.data.getRecords('students', this.selectedProgram, this.selectedLab, startDate, endDate).then((data: any[]) => {
-        this.records = data.sort((a, b) => a.date - b.date);
-      });
+      if (this.selectedGroup) {
+        this.data.getRecords('students', this.selectedProgram, this.selectedLab,
+          startDate, endDate, this.selectedGroup.subject_id, this.selectedGroup.group_id)
+          .then((data: any[]) => {
+            this.records = data.sort((a, b) => a.date - b.date);
+          });
+      } else {
+        this.data.getRecords('students', this.selectedProgram, this.selectedLab, startDate, endDate, null, null)
+          .then((data: any[]) => {
+            this.records = data.sort((a, b) => a.date - b.date);
+          });
+      }
     } else {
       // Professores
-      this.data.getRecords('professors', null, this.selectedLab, startDate, endDate).then((data: any[]) => {
+      this.data.getRecords('professors', null, this.selectedLab, startDate, endDate, null, null).then((data: any[]) => {
         this.records = data.sort((a, b) => a.date - b.date);
       });
     }

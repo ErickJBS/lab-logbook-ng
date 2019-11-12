@@ -56,4 +56,18 @@ export class ScheduleService {
     }
     return result;
   }
+
+  async getGroups(classroom: string) {
+    const groups = new Map();
+    this.schedule = await this.data.getClassroomSchedule(classroom);
+    for (const cls of this.schedule) {
+      const { group_id, subject_id, name } = cls;
+      groups.set(`${group_id}${subject_id}`, { group_id, name, subject_id });
+    }
+    const result = [];
+    for (const value of groups) {
+      result.push(value[1]);
+    }
+    return result;
+  }
 }
