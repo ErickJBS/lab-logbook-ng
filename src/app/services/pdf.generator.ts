@@ -4,6 +4,7 @@ import { PageOrientation } from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { group } from '@angular/animations';
 import { Subject } from 'rxjs';
+import { AssetsService } from './assets.service';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({
@@ -11,11 +12,9 @@ import { Subject } from 'rxjs';
 })
 export class PdfGenerator {
 
-  images = {
-    logo_fing: 'img/logo_fing.png',
-  };
+  images: any = {};
 
-  constructor() {
+  constructor(private assets: AssetsService) {
     (pdfMake as any).fonts = {
       Roboto: {
         normal: 'Roboto-Regular.ttf',
@@ -24,6 +23,12 @@ export class PdfGenerator {
         bolditalics: 'Roboto-MediumItalic.ttf'
       }
     };
+    this.loadImages();
+  }
+
+  async loadImages() {
+    this.images.logo_fing = await this.assets.getAssetAsBlob('img/logo_fing.jpg');
+    this.images.logo_uach = await this.assets.getAssetAsBlob('img/logo_uach.jpg');
   }
 
   generateStudentsReportPdf(content: {
@@ -38,6 +43,21 @@ export class PdfGenerator {
   }) {
     const timeStamp = `${this.formatDate(content.startDate)} - ${this.formatDate(content.endDate)}`;
     const docDefinition = {
+      background: [
+        {
+          margin: [30, 30, 0, 0],
+          image: this.images.logo_uach,
+          height: 130,
+          width: 120,
+        },
+        {
+          margin: [0, -130, 20, 0],
+          alignment: 'right',
+          height: 130,
+          width: 130,
+          image: this.images.logo_fing,
+        }
+      ],
       content: [
         { text: 'Universidad Autónoma de Chihuahua', style: 'header' },
         { text: 'Facultad de Ingeniería', style: 'header' },
@@ -97,7 +117,7 @@ export class PdfGenerator {
       }
     };
 
-    pdfMake.createPdf(docDefinition).open();
+    pdfMake.createPdf(docDefinition as any).open();
   }
 
   generateProfessorsReportPdf(content: {
@@ -109,6 +129,21 @@ export class PdfGenerator {
   }) {
     const docDefinition = {
       pageOrientation: 'landscape',
+      background: [
+        {
+          margin: [60, 30, 0, 0],
+          image: this.images.logo_uach,
+          height: 110,
+          width: 100,
+        },
+        {
+          margin: [0, -110, 40, 0],
+          alignment: 'right',
+          height: 110,
+          width: 110,
+          image: this.images.logo_fing,
+        }
+      ],
       content: [
         { text: 'Universidad Autónoma de Chihuahua', style: 'header' },
         { text: 'Facultad de Ingeniería', style: 'header' },
@@ -116,7 +151,7 @@ export class PdfGenerator {
         { text: 'Bitácora de Asistencia Docente', style: 'header' },
         { text: `Jefe de Laboratorio: ${content.managerName}`, style: 'header' },
         {
-          margin: [0, 20, 0, 0],
+          margin: [0, 30, 0, 0],
           table: {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
