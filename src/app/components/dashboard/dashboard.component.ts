@@ -64,7 +64,6 @@ export class DashboardComponent implements OnInit {
         };
       });
       this.groups.unshift({ label: 'Todos los grupos' });
-      console.log(this.groups);
     });
   }
 
@@ -133,6 +132,7 @@ export class DashboardComponent implements OnInit {
       const records = this.records.map((item: any) => [item.student_id, item.name, item.program_id]);
       if (this.selectedGroup) {
         this.pdf.generateStudentsReportPdf({
+          classroom: this.selectedLab,
           managerName: admin.name,
           records,
           startDate: this.startDate,
@@ -143,6 +143,7 @@ export class DashboardComponent implements OnInit {
         });
       } else {
         this.pdf.generateStudentsReportPdf({
+          classroom: this.selectedLab,
           managerName: admin.name,
           records,
           startDate: this.startDate,
@@ -161,6 +162,7 @@ export class DashboardComponent implements OnInit {
         ];
       });
       this.pdf.generateProfessorsReportPdf({
+        classroom: this.selectedLab,
         managerName: admin.name,
         records,
         startDate: this.startDate,

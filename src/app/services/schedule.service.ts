@@ -60,7 +60,6 @@ export class ScheduleService {
   async getGroups(classroom: string) {
     const groups = new Map();
     const schedule: any = await this.data.getClassroomSchedule(classroom);
-    console.log(schedule);
     for (const cls of schedule) {
       const { group_id, subject_id, name, professor } = cls;
       groups.set(`${group_id}${subject_id}`, { group_id, name, subject_id, professor });

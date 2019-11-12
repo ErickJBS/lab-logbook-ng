@@ -27,6 +27,7 @@ export class PdfGenerator {
   }
 
   generateStudentsReportPdf(content: {
+    classroom: string,
     startDate: Date,
     endDate: Date,
     group: string,
@@ -40,7 +41,7 @@ export class PdfGenerator {
       content: [
         { text: 'Universidad Autónoma de Chihuahua', style: 'header' },
         { text: 'Facultad de Ingeniería', style: 'header' },
-        { text: 'Laboratorio de Automática', style: 'header' },
+        { text: `Laboratorio: ${content.classroom}`, style: 'header' },
         { text: 'Bitácora de Asistencia de Alumnos', style: 'header' },
         { text: `Jefe de Laboratorio: ${content.managerName}`, style: 'header' },
         {
@@ -100,6 +101,7 @@ export class PdfGenerator {
   }
 
   generateProfessorsReportPdf(content: {
+    classroom: string,
     startDate: Date,
     endDate: Date,
     managerName: string,
@@ -110,8 +112,8 @@ export class PdfGenerator {
       content: [
         { text: 'Universidad Autónoma de Chihuahua', style: 'header' },
         { text: 'Facultad de Ingeniería', style: 'header' },
-        { text: 'Laboratorio de Automática', style: 'header' },
-        { text: 'Bitácora de Asistencia de Alumnos', style: 'header' },
+        { text: `Laboratorio: ${content.classroom}`, style: 'header' },
+        { text: 'Bitácora de Asistencia Docente', style: 'header' },
         { text: `Jefe de Laboratorio: ${content.managerName}`, style: 'header' },
         {
           margin: [0, 20, 0, 0],
