@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import { PageOrientation } from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { group } from '@angular/animations';
+import { Subject } from 'rxjs';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({
@@ -24,14 +26,44 @@ export class PdfGenerator {
     };
   }
 
-  generateStudentsReportPdf(managerName: string, records: any[]) {
+  generateStudentsReportPdf(content: {
+    startDate: Date,
+    endDate: Date,
+    group: string,
+    subject: string,
+    managerName: string,
+    records: any[]
+    professor: string
+  }) {
+    const timeStamp = `${this.formatDate(content.startDate)} - ${this.formatDate(content.endDate)}`;
     const docDefinition = {
       content: [
         { text: 'Universidad Autónoma de Chihuahua', style: 'header' },
         { text: 'Facultad de Ingeniería', style: 'header' },
         { text: 'Laboratorio de Automática', style: 'header' },
         { text: 'Bitácora de Asistencia de Alumnos', style: 'header' },
-        { text: `Jefe de Laboratorio: ${managerName}`, style: 'header' },
+        { text: `Jefe de Laboratorio: ${content.managerName}`, style: 'header' },
+        {
+          columns: [
+            { width: '*', text: '' },
+            {
+              width: 'auto',
+              alignment: 'center',
+              margin: [0, 20, 0, 0],
+              table: {
+                headerRows: 0,
+                widths: ['*'],
+                body: [
+                  [{ text: content.group || 'NA' }],
+                  [{ text: content.subject || 'NA' }],
+                  [{ text: content.professor || 'NA' }],
+                  [{ text: timeStamp }],
+                ]
+              }
+            },
+            { width: '*', text: '' },
+          ]
+        },
         {
           margin: [0, 20, 0, 0],
           table: {
@@ -42,7 +74,7 @@ export class PdfGenerator {
 
             body: [
               [{ text: 'Matrícula', style: 'tableHead' }, { text: 'Nombre', style: 'tableHead' }, { text: 'Carrera', style: 'tableHead' }],
-              ...records
+              ...content.records
             ]
           }
         }
@@ -67,7 +99,12 @@ export class PdfGenerator {
     pdfMake.createPdf(docDefinition).open();
   }
 
-  generateProfessorsReportPdf(managerName: string, records: any[]) {
+  generateProfessorsReportPdf(content: {
+    startDate: Date,
+    endDate: Date,
+    managerName: string,
+    records: any[]
+  }) {
     const docDefinition = {
       pageOrientation: 'landscape',
       content: [
@@ -75,7 +112,7 @@ export class PdfGenerator {
         { text: 'Facultad de Ingeniería', style: 'header' },
         { text: 'Laboratorio de Automática', style: 'header' },
         { text: 'Bitácora de Asistencia de Alumnos', style: 'header' },
-        { text: `Jefe de Laboratorio: ${managerName}`, style: 'header' },
+        { text: `Jefe de Laboratorio: ${content.managerName}`, style: 'header' },
         {
           margin: [0, 20, 0, 0],
           table: {
@@ -87,7 +124,7 @@ export class PdfGenerator {
             body: [
               [{ text: 'Docente', style: 'tableHead' }, { text: 'Materia', style: 'tableHead' },
               { text: 'Fecha', style: 'tableHead' }, { text: 'Entrada', style: 'tableHead' }],
-              ...records
+              ...content.records
             ]
           }
         }
@@ -108,4 +145,17 @@ export class PdfGenerator {
     pdfMake.createPdf(docDefinition as any).open();
   }
 
+  formatDate(date: Date) {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    const year = '' + date.getFullYear();
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [day, month, year].join('/');
+  }
 }

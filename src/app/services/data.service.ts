@@ -14,13 +14,7 @@ export class DataService {
 
   getClassroomSchedule(id: string) {
     const requestUrl = `${this.baseUrl}/classroom?id=${id}`;
-    return new Promise<any[]>((resolve, reject) => {
-      this.http.get(requestUrl).subscribe((data: any[]) => {
-        resolve(data);
-      }, (error) => {
-        reject(error);
-      });
-    });
+    return this.http.get(requestUrl).toPromise();
   }
 
   getGroupList(groupId: string, subjectId: string) {

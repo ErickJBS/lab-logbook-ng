@@ -9,7 +9,7 @@ import { async } from 'q';
 export class ScheduleService {
 
   private currentLab: string;
-  private schedule: any[];
+  private schedule: any;
 
   constructor(
     private auth: AuthService,
@@ -59,10 +59,11 @@ export class ScheduleService {
 
   async getGroups(classroom: string) {
     const groups = new Map();
-    this.schedule = await this.data.getClassroomSchedule(classroom);
-    for (const cls of this.schedule) {
-      const { group_id, subject_id, name } = cls;
-      groups.set(`${group_id}${subject_id}`, { group_id, name, subject_id });
+    const schedule: any = await this.data.getClassroomSchedule(classroom);
+    console.log(schedule);
+    for (const cls of schedule) {
+      const { group_id, subject_id, name, professor } = cls;
+      groups.set(`${group_id}${subject_id}`, { group_id, name, subject_id, professor });
     }
     const result = [];
     for (const value of groups) {
