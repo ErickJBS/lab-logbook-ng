@@ -36,6 +36,7 @@ export class FilesComponent implements OnInit {
   }
 
   onUpload(event: any) {
+    console.log('onUpload');
     const file = event.files[0];
     if (file === null) {
       this.displayMessage('No se seleccionó un archivo');

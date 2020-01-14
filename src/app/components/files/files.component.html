@@ -15,7 +15,7 @@
         <div class="col"></div>
         <div class="col-lg-3">
           <p-fileUpload #input name="xls" styleClass="btn btn-block btn-primary" mode="basic" customUpload="true"
-            chooseLabel="Seleccionar archivo" (uploadHandler)="onUpload($event)" auto="true"
+            chooseLabel="Seleccionar archivo" (onSelect)="onUpload($event)" auto="true"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
           </p-fileUpload>
         </div>

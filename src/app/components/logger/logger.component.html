@@ -61,7 +61,7 @@
 
                 <form class="user" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onStudentLog()" novalidate>
                     <div class="form-group">
-                        <input type="number" class="form-control form-control-lg" #m="ngModel" name="student" cha
+                        <input type="text" class="form-control form-control-lg" #m="ngModel" name="student" cha
                             placeholder="Matrícula" [(ngModel)]="studentId" required>
                         <div class="invalid-feedback" *ngIf="f.submitted && m.invalid">
                             <div *ngIf="m.errors.required">Campo requerido</div>

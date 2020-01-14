@@ -56,6 +56,7 @@ export class LoggerComponent implements OnInit {
       } else {
         this.displayMessage('Empleado no encontrado');
       }
+      this.employeeId = '';
     }).catch((error) => {
       console.error(error);
     });
@@ -66,6 +67,9 @@ export class LoggerComponent implements OnInit {
       this.displayMessage('No se seleccionó un grupo');
       return;
     }
+    if (this.studentId.endsWith('4400') && this.studentId.startsWith('A')) {
+      this.studentId = this.studentId.substring(1, 7);
+    }
     this.data.getStudent(this.studentId).subscribe(async (data: any) => {
       if (data && data.length > 0) {
         this.lastStudent = data[0];
@@ -73,6 +77,7 @@ export class LoggerComponent implements OnInit {
       } else {
         this.displayMessage('Estudiante no encontrado');
       }
+      this.studentId = '';
     }, (error) => {
       console.error(error);
     });

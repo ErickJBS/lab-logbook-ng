@@ -9,7 +9,7 @@ import { User } from '@models/user';
 })
 export class NavComponent implements OnInit {
 
-  private user: User;
+  user: User;
 
   constructor(private auth: AuthService) { }
 
