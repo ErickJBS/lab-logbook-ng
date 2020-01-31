@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
       { path: 'home', component: LoggerComponent, canActivate: [GuardService] },
-      { path: 'dashboard', component: DashboardComponent, canActivate: [GuardService], data: { role: 0 } },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [GuardService] },
       { path: 'database', component: FilesComponent, canActivate: [GuardService], data: { role: 0 } },
       {
         path: 'settings', component: SettingsComponent, canActivate: [GuardService], data: { role: 0 }, children: [
