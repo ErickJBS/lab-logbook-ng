@@ -63,6 +63,7 @@ export class DashboardComponent implements OnInit {
           value: item,
         };
       });
+      this.groups = this.groups.sort((a, b) => a.label.localeCompare(b.label));
       this.groups.unshift({ label: 'Todos los grupos' });
     });
   }

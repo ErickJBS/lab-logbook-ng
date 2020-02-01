@@ -42,6 +42,7 @@ export class LoggerComponent implements OnInit {
         value: item,
       };
     });
+    this.labClasses = this.labClasses.sort((a, b) => a.label.localeCompare(b.label));
     this.labClasses.unshift({ label: 'Seleccione un grupo', value: null });
   }
 
