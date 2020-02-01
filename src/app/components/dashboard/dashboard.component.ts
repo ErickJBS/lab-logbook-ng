@@ -196,4 +196,9 @@ export class DashboardComponent implements OnInit {
     minute = minute.length < 2 ? `0${minute}` : minute;
     return [hour, minute].join(':');
   }
+
+  onCalendarChange() {
+    this.endDate.setHours(23, 59, 59);
+    console.log(this.startDate, this.endDate);
+  }
 }

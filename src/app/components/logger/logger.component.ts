@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { MessageService } from 'primeng/api';
 import { ScheduleService } from '@app/services/schedule.service';
@@ -11,8 +11,10 @@ import { AuthService } from '@app/services/auth.service';
 })
 export class LoggerComponent implements OnInit {
 
+  @ViewChild('student', { static: false, read: ElementRef }) studentIdInput: ElementRef;
   studentId: string;
   lastStudent: any;
+  displayError: boolean;
 
   employeeId: string;
   lastEmployee: any;
@@ -53,6 +55,7 @@ export class LoggerComponent implements OnInit {
       if (data && data.length > 0) {
         this.lastEmployee = data[0];
         this.logEmployee();
+        this.studentIdInput.nativeElement.focus();
       } else {
         this.displayMessage('Empleado no encontrado');
       }
@@ -63,6 +66,7 @@ export class LoggerComponent implements OnInit {
   }
 
   onStudentLog() {
+    this.displayError = false;
     if (!this.selectedClass) {
       this.displayMessage('No se seleccionó un grupo');
       return;
@@ -75,6 +79,7 @@ export class LoggerComponent implements OnInit {
         this.lastStudent = data[0];
         this.logStudent();
       } else {
+        this.displayError = true;
         this.displayMessage('Estudiante no encontrado');
       }
       this.studentId = '';

@@ -57,7 +57,7 @@
                 <label class="form-label" for="endDate">Fecha Final </label>
                 <p-calendar [(ngModel)]="endDate" [yearNavigator]="true" [monthNavigator]="true" [locale]="ES_LOCALE"
                   name="endDate" inputStyleClass="form-control" [style]="{ 'width': '100%' }" dateFormat="dd/mm/yy"
-                  placeholder="DD/MM/AAAA" yearRange="{{ dynamicDateRange() }}">
+                  placeholder="DD/MM/AAAA" yearRange="{{ dynamicDateRange() }}" (onSelect)="onCalendarChange()">
                 </p-calendar>
               </div>
             </div>

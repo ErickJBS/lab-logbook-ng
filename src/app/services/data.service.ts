@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  // Default set to 10 minutes
+  private COOLDOWN_TIME_IN_MILLIS = 10 * 60 * 1000;
+
+  private cooldownAux: Map<string, Date>;
   private baseUrl: string;
 
   constructor(private http: HttpClient) {
     this.baseUrl = environment.apiUrl;
+    this.cooldownAux = new Map<string, Date>();
   }
 
   getClassroomSchedule(id: string) {
@@ -74,7 +80,23 @@ export class DataService {
     return this.http.get(requestUrl).toPromise();
   }
 
+  private validateRecord(studentId: string) {
+    const currentDate = new Date();
+    if (this.cooldownAux.has(studentId)) {
+      const lastRecordDate = this.cooldownAux.get(studentId);
+      const diffTime = currentDate.getTime() - lastRecordDate.getTime();
+      return diffTime > this.COOLDOWN_TIME_IN_MILLIS;
+    } else {
+      this.cooldownAux.set(studentId, currentDate);
+      return true;
+    }
+  }
+
   createRecord(studentId: string, classroom: string, groupId: string, subjectId: string) {
+    if (!this.validateRecord(studentId)) {
+      // To prevent multiple record creation from happening
+      return;
+    }
     const postUrl = `${this.baseUrl}/record/create`;
     return this.http.post<any>(postUrl, { studentId, classroom, groupId, subjectId }).subscribe();
   }
