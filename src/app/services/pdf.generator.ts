@@ -43,21 +43,23 @@ export class PdfGenerator {
   }) {
     const timeStamp = `${this.formatDate(content.startDate)} - ${this.formatDate(content.endDate)}`;
     const docDefinition = {
-      background: [
-        {
-          margin: [30, 30, 0, 0],
-          image: this.images.logo_uach,
-          height: 130,
-          width: 120,
-        },
-        {
-          margin: [0, -130, 20, 0],
-          alignment: 'right',
-          height: 130,
-          width: 130,
-          image: this.images.logo_fing,
-        }
-      ],
+      background: (currentPage: number, pageSize: any) => {
+        return currentPage === 1 ? [
+          {
+            margin: [30, 30, 0, 0],
+            image: this.images.logo_uach,
+            height: 100,
+            width: 90,
+          },
+          {
+            margin: [0, -90, 20, 0],
+            alignment: 'right',
+            height: 90,
+            width: 90,
+            image: this.images.logo_fing,
+          }
+        ] : '';
+      },
       content: [
         { text: 'Universidad Autónoma de Chihuahua', style: 'header' },
         { text: 'Facultad de Ingeniería', style: 'header' },
@@ -129,21 +131,23 @@ export class PdfGenerator {
   }) {
     const docDefinition = {
       pageOrientation: 'landscape',
-      background: [
-        {
-          margin: [60, 30, 0, 0],
-          image: this.images.logo_uach,
-          height: 110,
-          width: 100,
-        },
-        {
-          margin: [0, -110, 40, 0],
-          alignment: 'right',
-          height: 110,
-          width: 110,
-          image: this.images.logo_fing,
-        }
-      ],
+      background: (currentPage: number, pageSize: any) => {
+        return currentPage === 1 ? [
+          {
+            margin: [30, 30, 0, 0],
+            image: this.images.logo_uach,
+            height: 100,
+            width: 90,
+          },
+          {
+            margin: [0, -90, 20, 0],
+            alignment: 'right',
+            height: 90,
+            width: 90,
+            image: this.images.logo_fing,
+          }
+        ] : '';
+      },
       content: [
         { text: 'Universidad Autónoma de Chihuahua', style: 'header' },
         { text: 'Facultad de Ingeniería', style: 'header' },
