@@ -16,10 +16,10 @@ export class AuthService {
     private http: HttpClient,
   ) { }
 
-  signUp(email: string, password: string, name: string, classroom: string) {
+  signUp(email: string, password: string, name: string, role: number) {
     const url = `${environment.apiUrl}/signup`;
     return new Promise<string>((resolve, reject) => {
-      this.http.post<any>(url, { email, password, name }).subscribe((data) => {
+      this.http.post<any>(url, { email, password, name, role }).subscribe((data) => {
         resolve(data);
       }, (error) => {
         reject(error);

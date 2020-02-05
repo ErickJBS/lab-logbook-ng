@@ -44,6 +44,14 @@
       <div class="row mt-3">
         <div class="col-md-4">
           <div class="form-group">
+            <label class="form-label" for="classroom">Rol</label>
+            <p-dropdown [style]="{'width':'100%'}" name="role" [options]="roles" [(ngModel)]="user.role"
+              #ur="ngModel" filter="false">
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
             <label class="form-label" for="password">Contraseña</label>
             <input type="password" class="form-control" #p="ngModel" name="password" [(ngModel)]="user.password"
               required [ngClass]="{ 'is-invalid': f.submitted && p.invalid }">

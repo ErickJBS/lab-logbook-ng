@@ -20,6 +20,7 @@ export class GuardService {
       return false;
     }
     if (user.role > next.data.role) {
+      this.router.navigate(['/home']);
       return false;
     }
     return true;

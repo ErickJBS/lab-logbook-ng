@@ -13,6 +13,11 @@ export class UserComponent implements OnInit {
 
   classrooms: any[];
   user: any = {};
+  roles: any = [
+    { label: 'Seleccionar rol' },
+    { label: 'Jefe de Laboratorio', value: 1 },
+    { label: 'Auxiliar', value: 2 }
+  ];
 
   constructor(
     private data: DataService,
@@ -39,7 +44,7 @@ export class UserComponent implements OnInit {
       this.displayErrorMessage('La contraseña no coincide con la confirmación');
       return;
     }
-    this.auth.signUp(this.user.email, this.user.password, this.user.name, null).then(data => {
+    this.auth.signUp(this.user.email, this.user.password, this.user.name, this.user.role).then(data => {
       const id = data;
       this.auth.assignClassroom(id, this.user.classroom).then(() => {
         this.router.navigate(['/settings']);

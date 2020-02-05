@@ -15,7 +15,7 @@
             <span>Registro</span></a>
     </li>
 
-    <li class="nav-item active py-0">
+    <li class="nav-item active py-0" *ngIf="user?.role != 2">
         <a class="nav-link" [routerLink]="['/dashboard']">
             <i class="fa fa-table px-3"></i>
             <span>Reportes</span>
