@@ -19,6 +19,11 @@ export class GuardService {
       this.router.navigate(['/login']);
       return false;
     }
+    // tslint:disable-next-line: triple-equals
+    if (user.role == 0 && next.data.adminNotAllowed) {
+      this.router.navigate(['/dashboard']);
+      return false;
+    }
     if (user.role > next.data.role) {
       this.router.navigate(['/home']);
       return false;

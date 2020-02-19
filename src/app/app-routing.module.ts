@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: '', component: MainComponent, children: [
-      { path: 'home', component: LoggerComponent, canActivate: [GuardService] },
+      { path: 'home', component: LoggerComponent, canActivate: [GuardService], data: { adminNotAllowed: true } },
       { path: 'dashboard', component: DashboardComponent, canActivate: [GuardService], data: { role: 1 } },
       { path: 'database', component: FilesComponent, canActivate: [GuardService], data: { role: 0 } },
       {
